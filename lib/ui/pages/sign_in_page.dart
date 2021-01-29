@@ -100,7 +100,9 @@ class _SignInPageState extends State<SignInPage> {
                     color: mainColor,
                   )
                 : RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(SignUpPage());
+                    },
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
