@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:get/get.dart';
+import 'package:FoodMarket/models/models.dart';
 
 part 'general_page.dart';
 part 'sign_in_page.dart';
