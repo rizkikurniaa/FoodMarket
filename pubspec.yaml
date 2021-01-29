@@ -26,6 +26,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   flutter_bloc: ^6.1.1
   flutter_spinkit: ^4.1.2+1
+  get: ^3.24.0
   google_fonts: ^1.1.2
   supercharged: ^1.12.0
 
