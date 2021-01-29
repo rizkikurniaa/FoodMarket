@@ -50,8 +50,9 @@ class _FoodPageState extends State<FoodPage> {
                   ),
                 ],
               ),
-            )
+            ),
             // LIST OF FOOD
+            FoodCard(mockFood)
             // LIST OF FOOD (TABS)
           ],
         )
