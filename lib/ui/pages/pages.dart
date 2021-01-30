@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:FoodMarket/shared/shared.dart';
 import 'package:FoodMarket/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -13,3 +15,4 @@ part 'sign_up_page.dart';
 part 'address_page.dart';
 part 'main_page.dart';
 part 'food_page.dart';
+part 'food_detail_page.dart';
