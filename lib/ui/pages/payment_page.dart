@@ -223,6 +223,141 @@ class PaymentPage extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          //// Bagian bawah
+          Container(
+            margin: EdgeInsets.only(bottom: defaultMargin),
+            padding:
+                EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 16),
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Deliver to',
+                  style: blackFontStyle3,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                        width: 80,
+                        child: Text(
+                          'Name',
+                          style: greyFontStyle,
+                        )),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width -
+                            2 * defaultMargin -
+                            80,
+                        child: Text(
+                          transaction.user.name,
+                          style: blackFontStyle3,
+                          textAlign: TextAlign.right,
+                        ))
+                  ],
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Phone Number',
+                      style: greyFontStyle,
+                    ),
+                    Text(
+                      transaction.user.phoneNumber,
+                      style: blackFontStyle3,
+                      textAlign: TextAlign.right,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                        width: 80,
+                        child: Text(
+                          'Address',
+                          style: greyFontStyle,
+                        )),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width -
+                            2 * defaultMargin -
+                            80,
+                        child: Text(
+                          transaction.user.address,
+                          style: blackFontStyle3,
+                          textAlign: TextAlign.right,
+                        ))
+                  ],
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'House Number',
+                      style: greyFontStyle,
+                    ),
+                    Text(
+                      transaction.user.houseNumber,
+                      style: blackFontStyle3,
+                      textAlign: TextAlign.right,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'City',
+                      style: greyFontStyle,
+                    ),
+                    Text(
+                      transaction.user.city,
+                      style: blackFontStyle3,
+                      textAlign: TextAlign.right,
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+          //// Checkout Button
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+            height: 45,
+            width: double.infinity,
+            child: RaisedButton(
+              onPressed: () {},
+              elevation: 0,
+              color: mainColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              child: Text(
+                "Checkout Now",
+                style: blackFontStyle3.copyWith(fontWeight: FontWeight.w500),
+              ),
+            ),
           )
         ],
       ),
