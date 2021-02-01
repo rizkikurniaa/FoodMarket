@@ -48,7 +48,12 @@ class OrderListItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(convertDateTime(transaction.dateTime)),
+              Text(
+                convertDateTime(transaction.dateTime),
+                style: greyFontStyle.copyWith(
+                  fontSize: 12,
+                ),
+              ),
               (transaction.status == TransactionStatus.cancelled)
                   ? Text(
                       'Cancelled',
