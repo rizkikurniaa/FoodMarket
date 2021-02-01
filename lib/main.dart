@@ -1,6 +1,5 @@
 import 'package:FoodMarket/cubit/cubit.dart';
 import 'package:FoodMarket/cubit/user_cubit.dart';
-import 'package:FoodMarket/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
