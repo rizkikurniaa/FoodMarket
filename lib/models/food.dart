@@ -1,5 +1,7 @@
 part of 'models.dart';
 
+enum FoodType { new_food, popular, recommended }
+
 class Food extends Equatable {
   final int id;
   final String picturePath;
@@ -8,6 +10,7 @@ class Food extends Equatable {
   final String ingredients;
   final int price;
   final double rate;
+  final List<FoodType> types;
 
   Food({
     this.id,
@@ -17,6 +20,7 @@ class Food extends Equatable {
     this.ingredients,
     this.price,
     this.rate,
+    this.types = const [],
   });
 
   @override
@@ -30,11 +34,11 @@ List<Food> mockFoods = [
       picturePath:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3o9RY6AF8Z59IuRa5qVJUonapTbs9UEoWKQ&usqp=CAU',
       name: 'Sate Sayur Sultan',
-      description:
-          'Sate sayur sultan adalah menu sate vegan paling terkenal di bandung. Sate ini dibuat dari berbagai macam bahan berkualitas.',
+      description: 'Sate sayur sultan adalah menu sate vegan paling terkenal di bandung. Sate ini dibuat dari berbagai macam bahan berkualitas.',
       ingredients: 'Bawang merah, Paprika, Bawang bombay, Timun',
       price: 150000,
-      rate: 4.2),
+      rate: 4.2,
+      types: [FoodType.new_food, FoodType.recommended, FoodType.popular]),
   Food(
       id: 2,
       picturePath:
@@ -54,17 +58,18 @@ List<Food> mockFoods = [
           'Spaghetti Poll Pedas adalah menu paling terkenal di Batusangkar. Makanan ini dibuat dari berbagai macam bahan berkualitas.',
       ingredients: 'Bawang merah, Paprika, Bawang bombay, Timun',
       price: 150000,
-      rate: 4.2),
+      rate: 4.2,
+      types: [FoodType.new_food]),
   Food(
       id: 4,
       picturePath:
           'https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2020/06/11/3650390209.jpg',
       name: 'Pizza Kaki Lima',
-      description:
-          'Pizza adalah menu sate vegan paling terkenal di padang. Pizza ini dibuat dari berbagai macam bahan berkualitas.',
+      description: 'Pizza adalah menu sate vegan paling terkenal di padang. Pizza ini dibuat dari berbagai macam bahan berkualitas.',
       ingredients: 'Bawang merah, Paprika, Bawang bombay, Timun',
       price: 150000,
-      rate: 4.2),
+      rate: 4.2,
+      types: [FoodType.recommended]),
   Food(
       id: 5,
       picturePath:
