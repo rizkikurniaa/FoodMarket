@@ -1,9 +1,16 @@
 part of 'pages.dart';
 
-class PaymentPage extends StatelessWidget {
+class PaymentPage extends StatefulWidget {
   final Transaction transaction;
 
   PaymentPage({this.transaction});
+
+  @override
+  _PaymentPageState createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> {
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +49,8 @@ class PaymentPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             image: DecorationImage(
-                              image: NetworkImage(transaction.food.picturePath),
+                              image: NetworkImage(
+                                  widget.transaction.food.picturePath),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -57,7 +65,7 @@ class PaymentPage extends StatelessWidget {
                               // 12 - (jarak picture ke title)
                               // 78, (lebar jumlah items)
                               child: Text(
-                                transaction.food.name,
+                                widget.transaction.food.name,
                                 style: blackFontStyle2,
                                 maxLines: 1,
                                 overflow: TextOverflow.clip,
@@ -68,7 +76,7 @@ class PaymentPage extends StatelessWidget {
                                       locale: 'id-ID',
                                       symbol: 'IDR',
                                       decimalDigits: 0)
-                                  .format(transaction.food.price),
+                                  .format(widget.transaction.food.price),
                               style: greyFontStyle.copyWith(fontSize: 13),
                             )
                           ],
@@ -76,7 +84,7 @@ class PaymentPage extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      '${transaction.quantity} item(s)',
+                      '${widget.transaction.quantity} item(s)',
                       style: greyFontStyle.copyWith(fontSize: 13),
                     ),
                   ],
@@ -97,7 +105,7 @@ class PaymentPage extends StatelessWidget {
                           defaultMargin -
                           5,
                       child: Text(
-                        transaction.food.name,
+                        widget.transaction.food.name,
                         style: greyFontStyle,
                       ),
                     ),
@@ -110,8 +118,7 @@ class PaymentPage extends StatelessWidget {
                                 locale: 'id-ID',
                                 symbol: 'IDR',
                                 decimalDigits: 0)
-                            .format(
-                                transaction.quantity * transaction.food.price),
+                            .format(widget.transaction.total),
                         style: blackFontStyle3,
                         textAlign: TextAlign.right,
                       ),
@@ -175,9 +182,7 @@ class PaymentPage extends StatelessWidget {
                                 locale: 'id-ID',
                                 symbol: 'IDR',
                                 decimalDigits: 0)
-                            .format(transaction.quantity *
-                                transaction.food.price *
-                                0.1),
+                            .format(widget.transaction.total * 0.1),
                         style: blackFontStyle3,
                         textAlign: TextAlign.right,
                       ),
@@ -209,10 +214,7 @@ class PaymentPage extends StatelessWidget {
                                 locale: 'id-ID',
                                 symbol: 'IDR',
                                 decimalDigits: 0)
-                            .format(transaction.food.price *
-                                    transaction.quantity *
-                                    1.1 +
-                                50000),
+                            .format(widget.transaction.total * 1.1 + 50000),
                         style: blackFontStyle3.copyWith(
                             fontWeight: FontWeight.w500,
                             color: '1ABC9C'.toColor()),
@@ -255,7 +257,7 @@ class PaymentPage extends StatelessWidget {
                             2 * defaultMargin -
                             80,
                         child: Text(
-                          transaction.user.name,
+                          widget.transaction.user.name,
                           style: blackFontStyle3,
                           textAlign: TextAlign.right,
                         ))
@@ -273,7 +275,7 @@ class PaymentPage extends StatelessWidget {
                       style: greyFontStyle,
                     ),
                     Text(
-                      transaction.user.phoneNumber,
+                      widget.transaction.user.phoneNumber,
                       style: blackFontStyle3,
                       textAlign: TextAlign.right,
                     )
@@ -297,7 +299,7 @@ class PaymentPage extends StatelessWidget {
                             2 * defaultMargin -
                             80,
                         child: Text(
-                          transaction.user.address,
+                          widget.transaction.user.address,
                           style: blackFontStyle3,
                           textAlign: TextAlign.right,
                         ))
@@ -315,7 +317,7 @@ class PaymentPage extends StatelessWidget {
                       style: greyFontStyle,
                     ),
                     Text(
-                      transaction.user.houseNumber,
+                      widget.transaction.user.houseNumber,
                       style: blackFontStyle3,
                       textAlign: TextAlign.right,
                     )
@@ -333,7 +335,7 @@ class PaymentPage extends StatelessWidget {
                       style: greyFontStyle,
                     ),
                     Text(
-                      transaction.user.city,
+                      widget.transaction.user.city,
                       style: blackFontStyle3,
                       textAlign: TextAlign.right,
                     )
@@ -343,22 +345,62 @@ class PaymentPage extends StatelessWidget {
             ),
           ),
           //// Checkout Button
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-            height: 45,
-            width: double.infinity,
-            child: RaisedButton(
-              onPressed: () {},
-              elevation: 0,
-              color: mainColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              child: Text(
-                "Checkout Now",
-                style: blackFontStyle3.copyWith(fontWeight: FontWeight.w500),
-              ),
-            ),
-          )
+          (isLoading)
+              ? Center(
+                  child: loadingIndicator,
+                )
+              : Container(
+                  margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+                  height: 45,
+                  width: double.infinity,
+                  child: RaisedButton(
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      bool result = await context
+                          .bloc<TransactionCubit>()
+                          .submitTransaction(widget.transaction.copyWith(
+                              dateTime: DateTime.now(),
+                              total: (widget.transaction.total * 1.1).toInt() +
+                                  50000));
+
+                      if (result == true) {
+                        Get.to(SuccessOrderPage());
+                      } else {
+                        setState(() {
+                          isLoading = false;
+                        });
+
+                        Get.snackbar("", "",
+                            backgroundColor: "D9435E".toColor(),
+                            icon: Icon(
+                              MdiIcons.closeCircleOutline,
+                              color: Colors.white,
+                            ),
+                            titleText: Text(
+                              "Transaction failed",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            messageText: Text("Please try again later",
+                                style:
+                                    GoogleFonts.poppins(color: Colors.white)));
+                      }
+                    },
+                    elevation: 0,
+                    color: mainColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Text(
+                      "Checkout Now",
+                      style:
+                          blackFontStyle3.copyWith(fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                )
         ],
       ),
     );
