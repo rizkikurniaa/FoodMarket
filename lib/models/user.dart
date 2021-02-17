@@ -11,6 +11,28 @@ class User extends Equatable {
   final String picturePath;
   static String token;
 
+  User({
+    this.id,
+    this.name,
+    this.email,
+    this.address,
+    this.houseNumber,
+    this.phoneNumber,
+    this.city,
+    this.picturePath,
+  });
+
+  factory User.fromJson(Map<String, dynamic> data) => User(
+        id: data['id'],
+        name: data['name'],
+        email: data['email'],
+        address: data['address'],
+        houseNumber: data['houseNumber'],
+        phoneNumber: data['phoneNumber'],
+        city: data['city'],
+        picturePath: data['profile_photo_url'],
+      );
+
   User copyWith({
     int id,
     String name,
@@ -30,17 +52,6 @@ class User extends Equatable {
           phoneNumber: phoneNumber ?? this.phoneNumber,
           city: city ?? this.city,
           picturePath: picturePath ?? this.picturePath);
-
-  User({
-    this.id,
-    this.name,
-    this.email,
-    this.address,
-    this.houseNumber,
-    this.phoneNumber,
-    this.city,
-    this.picturePath,
-  });
 
   @override
   List<Object> get props =>
