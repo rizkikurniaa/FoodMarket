@@ -37,7 +37,7 @@ class UserServices {
     var data = jsonDecode(response.body);
 
     User.token = data['data']['access_token'];
-    User value = data['data']['user'];
+    User value = User.fromJson(data['data']['user']);
 
     if (pictureFile != null) {
       ApiReturnValue<String> result = await uploadProfilePicture(pictureFile);
