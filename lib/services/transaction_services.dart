@@ -5,7 +5,7 @@ class TransactionServices {
       {http.Client client}) async {
     client ??= http.Client();
 
-    String url = baseUrl + 'transaction';
+    String url = baseUrl + 'transaction/?limit=1000';
 
     var response = await client.get(url, headers: {
       "Content-Type": "application/json",
