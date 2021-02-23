@@ -317,7 +317,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       style: greyFontStyle,
                     ),
                     Text(
-                      widget.transaction.user.houseNumber,
+                      widget.transaction.user.houseNumber ?? "-",
                       style: blackFontStyle3,
                       textAlign: TextAlign.right,
                     )
@@ -359,15 +359,15 @@ class _PaymentPageState extends State<PaymentPage> {
                         isLoading = true;
                       });
 
-                      bool result = await context
+                      String paymentUrl = await context
                           .bloc<TransactionCubit>()
                           .submitTransaction(widget.transaction.copyWith(
                               dateTime: DateTime.now(),
                               total: (widget.transaction.total * 1.1).toInt() +
                                   50000));
 
-                      if (result == true) {
-                        Get.to(SuccessOrderPage());
+                      if (paymentUrl != null) {
+                        Get.to(PaymentMethodPage(paymentUrl));
                       } else {
                         setState(() {
                           isLoading = false;
